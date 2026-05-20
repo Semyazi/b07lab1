@@ -1,0 +1,8 @@
+This project contains an API for manipulating polynomials. It allows the user to:
+- represent polynomials using coefficients
+- add two polynomials
+- check if a certain value is a root of a polynomial
+
+It also contains a driver that demonstrates the use of this functionality.
+
+This project was created by me, Evan Simanovskis on 2026/5/20 for the CSCB07 course at UTSC.
