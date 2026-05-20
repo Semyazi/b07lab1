@@ -3,6 +3,6 @@ This project contains an API for manipulating polynomials. It allows the user to
 - add two polynomials
 - check if a certain value is a root of a polynomial
 
-It also contains a driver that demonstrates the use of this functionality.
+It also contains a driver that demonstrates the use of this functionality (which is provided by the assignment info sheet, not me).
 
 This project was created by me, Evan Simanovskis on 2026/5/20 for the CSCB07 course at UTSC.
