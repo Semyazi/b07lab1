@@ -1,25 +1,41 @@
 public class Polynomial {
     static double EPSILON = 1e-6; // used when checking if a value is a root
     double[] coeff;
+    int[] exps;
     Polynomial() {
         coeff = new double[]{0};
+        exps = new int[]{0};
     }
-    Polynomial(double[] coeff) {
+    Polynomial(double[] coeff, int[] exps) {
         this.coeff = coeff.clone();
+        this.exps = exps.clone();
     }
     Polynomial add(Polynomial other) {
+        int maxd = Math.max(this.exps[this.exps.length-1], other.exps[other.exps.length-1]);
+        double[] cosum = new double[maxd+1];
+        for(int i = 0; i < this.coeff.length; i++) cosum[this.exps[i]] += this.coeff[i];
+        for(int i = 0; i < other.coeff.length; i++) cosum[other.exps[i]] += other.coeff[i];
+
+        int tot = 0;
+        for(int d = 0; d <= maxd; d++) tot += Math.abs(cosum[d]) >= EPSILON;
         Polynomial sm = new Polynomial();
-        sm.coeff = new double[Math.max(this.coeff.length, other.coeff.length)];
-        for(int i = 0; i < this.coeff.length; i++) sm.coeff[i] += this.coeff[i];
-        for(int i = 0; i < other.coeff.length; i++) sm.coeff[i] += other.coeff[i];
+        sm.coeff = new double[tot];
+        sm.exps = new int[tot];
+        int cur = 0;
+        for(int d = 0; d <= maxd; d++) if(Math.abs(cosum[d]) >= EPSILON){
+            sm.coeff[cur] = cosum[d];
+            sm.exps[cur] = d;
+            cur++;
+        }
         return sm;
     }
     double evaluate(double x) {
         double X = 1;
+        int cur = 0;
         double res = 0;
         for(int i = 0; i < coeff.length; i++){
+            while(cur < exps[i]) X *= x, cur++;
             res += X * coeff[i];
-            X *= x;
         }
         return res;
     }
