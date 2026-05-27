@@ -17,7 +17,8 @@ public class Polynomial {
         for(int i = 0; i < other.coeff.length; i++) cosum[other.exps[i]] += other.coeff[i];
 
         int tot = 0;
-        for(int d = 0; d <= maxd; d++) tot += Math.abs(cosum[d]) >= EPSILON;
+        for(int d = 0; d <= maxd; d++) tot += (Math.abs(cosum[d]) >= EPSILON) ? 1 : 0;
+        tot = Math.max(tot, 1); // ensure we have the 'trivial' 0x^0 polynomial if there's nothing
         Polynomial sm = new Polynomial();
         sm.coeff = new double[tot];
         sm.exps = new int[tot];
@@ -29,12 +30,27 @@ public class Polynomial {
         }
         return sm;
     }
+    Polynomial multiply(Polynomial other){
+        Polynomial res = new Polynomial();
+        for(int i = 0; i < coeff.length; i++){
+            Polynomial cur = new Polynomial(other.coeff, other.exps);
+            for(int j = 0; j < cur.coeff.length; j++){
+                cur.coeff[j] *= coeff[i];
+                cur.exps[j] += exps[i];
+            }
+            res = res.add(cur);
+        }
+        return res;
+    }
     double evaluate(double x) {
         double X = 1;
         int cur = 0;
         double res = 0;
         for(int i = 0; i < coeff.length; i++){
-            while(cur < exps[i]) X *= x, cur++;
+            while(cur < exps[i]){
+                X *= x;
+                cur++;
+            }
             res += X * coeff[i];
         }
         return res;
