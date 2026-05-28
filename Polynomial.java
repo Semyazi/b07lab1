@@ -30,7 +30,6 @@ public class Polynomial {
             if(c == '-') bld.append("+-");
             else bld.append(c);
         }
-
         ArrayList<Double>Coeff = new ArrayList<>();
         ArrayList<Integer>Exps = new ArrayList<>();
         for(String part : bld.toString().split("\\+")){

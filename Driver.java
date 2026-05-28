@@ -31,7 +31,6 @@ public class Driver {
 
         Polynomial p4 = p.add(p3);
         System.out.println(p4);
-
         p4.saveToFile("poly4.txt");
     }
 }
