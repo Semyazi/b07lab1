@@ -1,16 +1,37 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Driver {
-    public static void main(String [] args) {
-    Polynomial p = new Polynomial();
-    System.out.println(p.evaluate(3));
-    double [] c1 = {6,0,0,5};
-    Polynomial p1 = new Polynomial(c1);
-    double [] c2 = {0,-2,0,0,-9};
-    Polynomial p2 = new Polynomial(c2);
-    Polynomial s = p1.add(p2);
-    System.out.println("s(0.1) = " + s.evaluate(0.1));
-    if(s.hasRoot(1))
-        System.out.println("1 is a root of s");
-    else
-        System.out.println("1 is not a root of s");
+    public static void main(String [] args) throws FileNotFoundException{
+        // test reading a polynomial & 'hasRoot'
+        Polynomial p = new Polynomial(new File("poly1.txt"));
+        if(p.hasRoot(313)){
+            System.out.println("313 is a root of p");
+        }else{
+            System.out.println("313 is not a root of p");
+        }
+        System.out.println(p);
+
+        // cancel out test
+        Polynomial s1 = new Polynomial("-1-x");
+        Polynomial s2 = new Polynomial("1+x");
+        System.out.println("should be 0");
+        System.out.println(s1.add(s2));
+
+        // test product
+        Polynomial p1 = new Polynomial("x-1");
+        Polynomial p2 = new Polynomial("x+1");
+        Polynomial p3 = p1.multiply(p2);
+        System.out.println(p3);
+        if(p.hasRoot(0)){
+            System.out.println("0 is a root of p3");
+        }else{
+            System.out.println("0 is not a root of p3");
+        }
+
+        Polynomial p4 = p.add(p3);
+        System.out.println(p4);
+
+        p4.saveToFile("poly4.txt");
     }
 }

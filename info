@@ -1,6 +1,9 @@
 This project contains an API for manipulating polynomials. It allows the user to:
 - represent polynomials using coefficients
+- manipulate them using strings
+- save them and read them from files
 - add two polynomials
+- multiply two polynomials
 - check if a certain value is a root of a polynomial
 
 It also contains a driver that demonstrates the use of this functionality (which is provided by the assignment info sheet, not me).
